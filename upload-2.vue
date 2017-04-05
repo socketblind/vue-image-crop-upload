@@ -882,7 +882,3 @@ export default {
 }
 
 </script>
-
-<style scoped>
-@import "./upload.css"
-</style>
