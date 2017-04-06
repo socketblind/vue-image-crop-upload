@@ -336,6 +336,9 @@ export default {
             sourceImgUrl: '',
             createImgUrl: '',
 
+            // Gabor: Original Name Property
+            sourceImgOriginalName: '',
+
             // 原图片拖动事件初始值
             sourceImgMouseDown: {
                 on: false,
@@ -519,6 +522,7 @@ export default {
                 this.reset();
                 if (this.checkFile(files[0])) {
                     this.setSourceImg(files[0]);
+                    this.setSourceOriginalName(files[0]);
                 }
             }
         },
@@ -564,6 +568,10 @@ export default {
                 that.startCrop();
             }
             fr.readAsDataURL(file);
+        },
+        // Gabor: set the original name property
+        setSourceOriginalName(file) {
+            this.sourceImgOriginalName = file.name;
         },
         // 剪裁前准备工作
         startCrop() {
@@ -823,6 +831,10 @@ export default {
                 Object.keys(params).forEach((k) => {
                     fmData.append(k, params[k]);
                 })
+                // Gabor: Send original name as request parameter
+                if(this.sourceImgOriginalName !== undefined) {
+                    fmData.append('originalName', this.sourceImgOriginalName);
+                }
             }
 
             // 监听进度回调
